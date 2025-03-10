@@ -12,18 +12,24 @@ const __dirname = path.dirname(__filename);
 import routes from './routes/index.js';
 
 const app = express();
-
 const PORT = process.env.PORT || 3001;
 
-// Serve static files of the entire client dist folder
-app.use(express.static(path.join(__dirname, 'client', 'dist'))); // Adjust if your dist folder is elsewhere
+// Serve static files from the 'client/dist' folder
+// This includes serving files from the 'assets' folder
+app.use(express.static(path.join(__dirname, 'client', 'dist'))); // Static assets
 
 // Middleware for parsing JSON and urlencoded form data
-app.use(express.json()); // For parsing application/json
-app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Middleware to connect the routes
+// Middleware to connect API routes
 app.use(routes);
+
+// Catch-all route for all non-API requests (SPA support)
+// Ensures index.html is served for routes handled by the frontend
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 // Start the server on the port
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
