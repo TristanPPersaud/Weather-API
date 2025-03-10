@@ -2,20 +2,28 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
-    "moduleResolution": "NodeNext", 
-    "outDir": "client/dist",  // Directory for compiled JavaScript files
-    "rootDir": "client/src",  // Root directory for your source files
+    "moduleResolution": "Bundler",
+    "allowJs": true,
+    "checkJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "noEmitOnError": true
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noImplicitOverride": true,
+    "useUnknownInCatchVariables": true,
+
+    "rootDir": "./src",  // Set the root directory for client code to client/src
+    "outDir": "./dist"   // Set the output directory for client code
   },
   "include": [
-    "client/src/**/*"
+    "src/**/*"  // Include all files in client/src folder
   ],
   "exclude": [
-    "client/dist/**/*",
-    "server/**/*",
-    "vite.config.js"
+    "node_modules", "dist"  // Exclude the node_modules and dist folder
   ]
 }

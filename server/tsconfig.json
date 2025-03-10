@@ -1,20 +1,18 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "outDir": "server/dist",
-    "rootDir": "server/src",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "noEmitOnError": true
+    /* Modules */
+    "rootDir": "src",             // Specifies the root folder for your source files (server/src)
+    "outDir": "dist",             // Specifies the output folder for all emitted files (server/dist)
+
+    /* Additional Configurations */
+    "strict": true,               // Enable strict type-checking options
+    "esModuleInterop": true,      // Allow default imports from modules without a default export
+    "moduleResolution": "Node",   // Use Node.js module resolution strategy
+    "resolveJsonModule": true,    // Allow importing .json files
+    "skipLibCheck": true,         // Skip type checking of declaration files (improves performance)
+    "forceConsistentCasingInFileNames": true  // Ensure file names are case-sensitive
   },
-  "include": [
-    "server/src/**/*"
-  ],
-  "exclude": [
-    "server/dist/**/*",
-    "client/**/*"
-  ]
+  "include": ["src"],            // Include all TypeScript files in the 'src' directory
+  "exclude": ["node_modules", "dist"]  // Exclude 'node_modules' and 'dist' directories
 }

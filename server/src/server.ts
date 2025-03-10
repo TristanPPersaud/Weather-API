@@ -1,9 +1,14 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import path from 'path'; // For serving static files
+import { fileURLToPath } from 'node:url'; // For getting the current directory in ES modules
+
 dotenv.config();
 
-// Import the routes
+// Get __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 import routes from './routes/index.js';
 
 const app = express();

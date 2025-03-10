@@ -1,59 +1,59 @@
-import { Router } from 'express';
-import HistoryService from '../../service/historyService.js';
-import WeatherService from '../../service/weatherService.js';
-
+import { Router, type Request, type Response } from 'express';
+import { Weather } from '../../service/weatherService.js';
 const router = Router();
 
+import HistoryService from '../../service/historyService.js';  // Make sure you're importing the correct service
+import WeatherService from '../../service/weatherService.js';  // For weather-related data
+
 // POST Request with city name to retrieve weather data
-router.post('/', async (req, res) => {
-  const { city } = req.body;
-
-  // Validate city
-  if (!city) {
-    return res.status(400).json({ message: 'City name is required' });
-  }
-
+router.post('/', async (req: Request, res: Response) => {
   try {
-    // Fetch weather data for the city
-    const weather = await WeatherService.getWeatherForCity(city);
-
-    // Handle case where weather data is empty
-    if (!weather || weather.length === 0) {
-      return res.status(404).json({ message: 'Weather data not found for this city' });
+    const cityName = req.body.cityName;
+    const weatherData: Weather[] = [];
+    
+    // Fetch weather data
+    const currentWeather = await WeatherService.getWeatherForCity(cityName) as Weather;
+    console.log(currentWeather);
+    const forecastWeather = await WeatherService.getForecastForCity(cityName);
+    console.log(forecastWeather);
+    
+    weatherData.push(currentWeather);
+    weatherData.push(...forecastWeather);
+    
+    // Save city to search history (Use HistoryService here, not WeatherService)
+    if (weatherData) {
+      await HistoryService.addCity(cityName);  // Corrected service call
     }
-
-    // Add city to search history
-    const newCity = await HistoryService.addCity(city);
-
-    res.json({ weather, newCity });
-  } catch (error) {
-    console.error('Error fetching weather:', error);
-    res.status(500).json({ message: 'Could not fetch weather data' });
+    
+    res.json(weatherData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
   }
-  return;
 });
 
 // GET search history
-router.get('/history', async (_req, res) => {
+router.get('/history', async (_req: Request, res: Response) => {
   try {
     const cities = await HistoryService.getCities();
     res.json(cities);
-  } catch (error) {
-    console.error('Error fetching search history:', error);
-    res.status(500).json({ message: 'Could not fetch search history' });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
   }
 });
 
-// DELETE city from search history by ID
-router.delete('/history/:id', async (req, res) => {
-  const { id } = req.params;
-
+// DELETE city from search history
+router.delete('/history/:id', async (req: Request, res: Response) => {
   try {
-    await HistoryService.removeCity(id);
-    res.json({ message: 'City removed from history' });
-  } catch (error) {
-    console.error('Error removing city:', error);
-    res.status(500).json({ message: 'Could not remove city from history' });
+    if (!req.params.id) {
+      res.status(400).json({ error: 'City ID is required' });
+    }
+    await HistoryService.removeCity(req.params.id);  // Corrected service call
+    res.json({ success: 'City removed from search history' });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
   }
 });
 
