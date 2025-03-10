@@ -14,9 +14,8 @@ import routes from './routes/index.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Serve static files from the 'client/dist' folder
-// This includes serving files from the 'assets' folder
-app.use(express.static(path.join(__dirname, 'client', 'dist'))); // Static assets
+// Correctly serve static files from the 'client/dist' folder
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist'))); // Make sure this points to the correct 'client/dist' folder
 
 // Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
@@ -26,9 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 // Catch-all route for all non-API requests (SPA support)
-// Ensures index.html is served for routes handled by the frontend
+// Ensure index.html is served for routes handled by the frontend
 app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html')); // Correct path to 'index.html'
 });
 
 // Start the server on the port
