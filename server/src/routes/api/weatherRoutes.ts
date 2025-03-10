@@ -2,8 +2,8 @@ import { Router, type Request, type Response } from 'express';
 import { Weather } from '../../service/weatherService.js';
 const router = Router();
 
-import HistoryService from '../../service/historyService.js';  // Make sure you're importing the correct service
-import WeatherService from '../../service/weatherService.js';  // For weather-related data
+import HistoryService from '../../service/historyService.js';  
+import WeatherService from '../../service/weatherService.js'; 
 
 // POST Request with city name to retrieve weather data
 router.post('/', async (req: Request, res: Response) => {
@@ -22,7 +22,7 @@ router.post('/', async (req: Request, res: Response) => {
     
     // Save city to search history (Use HistoryService here, not WeatherService)
     if (weatherData) {
-      await HistoryService.addCity(cityName);  // Corrected service call
+      await HistoryService.addCity(cityName);  
     }
     
     res.json(weatherData);
@@ -49,7 +49,7 @@ router.delete('/history/:id', async (req: Request, res: Response) => {
     if (!req.params.id) {
       res.status(400).json({ error: 'City ID is required' });
     }
-    await HistoryService.removeCity(req.params.id);  // Corrected service call
+    await HistoryService.removeCity(req.params.id);  
     res.json({ success: 'City removed from search history' });
   } catch (err) {
     console.log(err);
