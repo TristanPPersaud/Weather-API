@@ -25,10 +25,5 @@ app.use(express.urlencoded({ extended: true })); // For parsing application/x-ww
 // Middleware to connect the routes
 app.use(routes);
 
-// Catch-all route for all non-API requests (SPA support)
-app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
-});
-
 // Start the server on the port
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
