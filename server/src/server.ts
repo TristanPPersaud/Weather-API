@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'node:url';
+import path from 'path'; // For serving static files
+import { fileURLToPath } from 'node:url'; // For getting the current directory in ES modules
 
 dotenv.config();
 
@@ -12,22 +12,18 @@ const __dirname = path.dirname(__filename);
 import routes from './routes/index.js';
 
 const app = express();
+
 const PORT = process.env.PORT || 3001;
 
-// Serve static files from the 'dist' folder (after the client is built)
-app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static files of the entire client dist folder
+app.use(express.static(path.join(__dirname, 'dist'))); // Adjust if your dist folder is elsewhere
 
-// Middleware to parse JSON and urlencoded form data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Middleware for parsing JSON and urlencoded form data
+app.use(express.json()); // For parsing application/json
+app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 
-// Middleware to connect API routes
+// Middleware to connect the routes
 app.use(routes);
 
-// Catch-all route for all non-API requests (SPA support)
-app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
-// Start the server
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+// Start the server on the port
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
