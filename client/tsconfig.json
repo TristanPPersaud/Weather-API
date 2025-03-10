@@ -21,7 +21,9 @@
     "outDir": "./dist"   // Set the output directory for client code
   },
   "include": [
-    "src/**/*"  // Include all files in client/src folder
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "vite-env.d.ts"
   ],
   "exclude": [
     "node_modules", "dist"  // Exclude the node_modules and dist folder
