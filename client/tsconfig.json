@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "NodeNext", 
+    "outDir": "client/dist",  // Directory for compiled JavaScript files
+    "rootDir": "client/src",  // Root directory for your source files
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noEmitOnError": true
+  },
+  "include": [
+    "client/src/**/*"
+  ],
+  "exclude": [
+    "client/dist/**/*",
+    "server/**/*",
+    "vite.config.js"
+  ]
+}
