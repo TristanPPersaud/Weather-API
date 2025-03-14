@@ -6,5 +6,13 @@
 	{
 		"name": "San Diego",
 		"id": "83b36d7d-10ff-42fd-95fe-99ead9a2854b"
+	},
+	{
+		"name": "New york",
+		"id": "064fb33c-87b6-47c7-b4c2-78f357acdb63"
+	},
+	{
+		"name": "Chicago",
+		"id": "d12a71ab-7e52-4a67-9da9-61b7033d4641"
 	}
 ]

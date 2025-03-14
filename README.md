@@ -30,3 +30,17 @@ Test as necessary.
 ## Questions
 For any questions, please contact me at [tristanpperaud@gmail.com](mailto:tristanpperaud@gmail.com).
 GitHub: [TristanPPersaud](https://github.com/TristanPPersaud)
+
+
+## Screen Shots:
+
+Look at previously stored searches
+![Usageimg1](/images/nyc.png)
+
+
+Search for new citites in the searchbar.
+![Usageimg2](/images/chicagosearch.png)
+
+
+View new data from searched city.
+![UsageImg3](/images/chicagodata.png)
